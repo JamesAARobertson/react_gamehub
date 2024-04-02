@@ -9,24 +9,39 @@ interface User {
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
-    axios.get<User[]>("https://jsonplaceholder.typicode.com/users", { signal: controller.signal })
-    .then(res => setUsers(res.data))
-    .catch(err => {
-        if (err instanceof CanceledError) return;
-        setError(err.message)
-       })
+    setIsLoading(true);
 
-    return () => controller.abort()
+    axios
+      .get<User[]>("https://jsonplaceholder.typicode.com/users", {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        setUsers(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setIsLoading(false)
+      })
+      // Doesn't seem to work in Strict Mode
+      // .finally(() => {
+      //   setIsLoading(false)
+      // });
+
+    return () => controller.abort();
   }, []);
 
   return (
     <>
       <div>
-      {error && <p className="text-danger">{error}</p>}
+        {error && <p className="text-danger">{error}</p>}
+        { isLoading && <div className="spinner-border"></div>}
         <ul>
           {users.map((user) => (
             <li key={user.id}>{user.name}</li>
