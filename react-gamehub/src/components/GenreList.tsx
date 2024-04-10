@@ -3,9 +3,12 @@ import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 
 const GenreList = () => {
-  const { data, isLoading } = useGenres();
+  const { data, isLoading, error } = useGenres();
+
+  if (error) return null
 
   if (isLoading) return <Spinner />
+
   return (
     <List>
       {data.map((genre) => (
