@@ -1,6 +1,6 @@
 import { CanceledError } from "axios";
 import { useState, useEffect } from "react";
-import userService, { User } from "../services/user-service";
+import userService, { User } from "./backend/user-service";
 
 function useUsers() {
     const [users, setUsers] = useState<User[]>([]);
