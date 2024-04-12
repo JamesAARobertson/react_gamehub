@@ -1,13 +1,13 @@
-import React from "react";
+// import React from "react";
 
-interface Props {
-    cartItemsCount: number
-}
+// interface Props {
+//     cartItemsCount: number
+// }
 
-function NavBar( {cartItemsCount} : Props) {
-    return (
-        <div>NavBar: {cartItemsCount}</div>
-    )
-}
+// function NavBar( {cartItemsCount} : Props) {
+//     return (
+//         <div>NavBar: {cartItemsCount}</div>
+//     )
+// }
 
-export default NavBar;
+// export default NavBar;
